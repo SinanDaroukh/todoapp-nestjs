@@ -33,6 +33,11 @@ export class TodosService {
   }
 
   createTodo(todo: CreateTodoDto) {
+    if (this.todos.length == 0) {
+      todo.id = 1;
+    } else {
+      todo.id = this.todos.reduce((acc, val) => Math.max(acc, val.id), 0) + 1;
+    }
     this.todos = [...this.todos, todo as Todo];
   }
 
